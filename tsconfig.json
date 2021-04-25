@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "outDir": "./dist/",
+    "module": "es6",
+    "moduleResolution": "node",
+    "removeComments": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "es5",
+    "strict": true,
+    "sourceMap": true,
+    "jsx": "preserve",
+    "paths": {
+      "@/*": [
+        "src/*",
+      ],
+      "$root/*": [
+        "./*"
+      ]
+    }
+  },
+  "include": [
+    "src/"
+  ]
+}
