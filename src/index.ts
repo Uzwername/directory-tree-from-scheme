@@ -5,8 +5,13 @@ const open = util.promisify(fs.open);
 const mkdir = util.promisify(fs.mkdir);
 const touch = (filepath: string) => open(filepath, "a");
 
-const makeDirectoryTreeFromScheme = () => {
-  fs.readdir(".", console.log);
+interface MakeDirectoryTreeFromScheme {
+  (path: string, scheme: string): Promise<boolean>;
+}
+
+const makeDirectoryTreeFromScheme: MakeDirectoryTreeFromScheme = async (path, scheme) => {
+  
+  return true;
 };
 
 export default makeDirectoryTreeFromScheme;
