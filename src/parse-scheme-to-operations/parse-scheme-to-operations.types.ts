@@ -9,3 +9,8 @@ export interface Operation {
 export interface ParseSchemeToOperations {
   (rawScheme: string): Operation[],
 }
+
+export interface Scope {
+  depth: number,
+  parentRef: Operation[],
+};

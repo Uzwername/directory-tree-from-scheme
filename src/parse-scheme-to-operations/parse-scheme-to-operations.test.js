@@ -111,9 +111,56 @@ describe(`${parseSchemeToOperations.name}: Valid inputs`, () => {
     
     expect(parseSchemeToOperations(testScheme)).toStrictEqual(expectedResult);
   });
+  
+  it("Parses nested children structures", () => {
+    expect(parseSchemeToOperations(`
+      notes
+      -| books.txt
+      -| important
+      --| accounts
+      ---| account-ids.xlsx
+      -| resources.pages
+      movies
+    `)).toStrictEqual([
+      {
+        name: "notes",
+        type: "dir",
+        children: [
+          {
+            name: "books.txt",
+            type: "file",
+            children: [],
+          },
+          {
+            name: "important",
+            type: "dir",
+            children: [{
+              name: "accounts",
+              type: "dir",
+              children: [{
+                name: "account-ids.xlsx",
+                type: "file",
+                children: [],
+              }]
+            }],
+          },
+          {
+            name: "resources.pages",
+            type: "file",
+            children: [],
+          },
+        ],
+      },
+      {
+        name: "movies",
+        type: "dir",
+        children: [],
+      },
+    ]);
+  });
 });
 
-describe(`${parseSchemeToOperations.name}: Valid inputs`, () => {
+describe(`${parseSchemeToOperations.name}: Invalid & weird inputs`, () => {
   it("Returns empty array for empty or obviously invalid input", () => {
     expect(parseSchemeToOperations(Symbol())).toStrictEqual([]);
     expect(parseSchemeToOperations(() => "hey")).toStrictEqual([]);
