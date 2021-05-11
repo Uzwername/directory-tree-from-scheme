@@ -1,8 +1,9 @@
 {
-  "name": "directory-tree-from-scheme",
+  "name": "mkdir-tree",
   "version": "0.0.1",
   "description": "Generate directory tree from a scheme.",
   "main": "index.js",
+  "private": false,
   "scripts": {
     "dev": "webpack --mode=development --config=webpack.dev.js --watch",
     "build": "webpack --mode=production --config=webpack.prod.js",
@@ -15,7 +16,10 @@
     "directory structure",
     "generate directory tree",
     "create directory structure",
-    "directory tree from scheme"
+    "directory tree from scheme",
+    "scaffolding",
+    "create scaffold",
+    "set up scaffold"
   ],
   "author": "Igor Bykov",
   "license": "MIT",

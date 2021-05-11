@@ -1,35 +1,36 @@
 import path from "path";
 import {
-  combinedForcedTypesRegex,
-  depthDelimiterSign,
+  combinedForcedTypesRegExp,
+  depthDelimiter,
   splitSchemeToCleanLines,
-} from "./parse-scheme-to-operations-utils";
-import { ForceTypeFlags, ParseSchemeToOperations, Operation, Scope } from "./parse-scheme-to-operations.types";
+} from "./parse-scheme-to-directory-tree-utils";
+import { ForceTypeFlags, ParseSchemeToDirectoryTree, DirentDescription, Scope } from "./parse-scheme-to-directory-tree.types";
 
-const parseSchemeToOperations: ParseSchemeToOperations = rawScheme => {
+const parseSchemeToDirectoryTree: ParseSchemeToDirectoryTree = rawScheme => {
   if (!rawScheme || typeof rawScheme !== "string") {
     return [];
   }
   
   const rawOperationLines: string[] = splitSchemeToCleanLines(rawScheme);
   
-  let operations: Operation[] = [];
+  const operations: DirentDescription[] = [];
   let scopesStack: Scope[] = [{
     depth: -1,
+    relativePath: "",
     parentRef: operations,
   }];
-  const getTopmostScope = () => scopesStack[scopesStack.length - 1];
+  const getTopScope = () => scopesStack[scopesStack.length - 1];
   
   for (const rawOperationLine of rawOperationLines) {
     let entryName: string;
     
     // Find out current line depth specified by the user via something like "--|"
-    const maybeDepthDelimiterIndex = rawOperationLine.indexOf(depthDelimiterSign);
+    const maybeDepthDelimiterIndex = rawOperationLine.search(depthDelimiter.pattern);
     const isDepthDelimiterPresent = maybeDepthDelimiterIndex > -1;
     let depthIndicator: string;
     if (isDepthDelimiterPresent) {
       depthIndicator = rawOperationLine.slice(0, maybeDepthDelimiterIndex).replace(/\s/g, "");
-      entryName = rawOperationLine.slice(maybeDepthDelimiterIndex + depthDelimiterSign.length);
+      entryName = rawOperationLine.slice(maybeDepthDelimiterIndex + depthDelimiter.length);
     } else {
       depthIndicator = "";
       entryName = rawOperationLine;
@@ -37,7 +38,7 @@ const parseSchemeToOperations: ParseSchemeToOperations = rawScheme => {
     const depth = depthIndicator.length
     
     // Find out whether entry type is forced or calculate entry type otherwise
-    const maybeForcedTypeSearchResults = rawOperationLine.match(combinedForcedTypesRegex);
+    const maybeForcedTypeSearchResults = rawOperationLine.match(combinedForcedTypesRegExp);
     const isEntryTypeForced = maybeForcedTypeSearchResults !== null;
     let forcedEntryType: string | undefined;
     let entryType: ForceTypeFlags;
@@ -49,20 +50,20 @@ const parseSchemeToOperations: ParseSchemeToOperations = rawScheme => {
       // Capturing group content
       entryType = forcedTypeSearchResults[1] as ForceTypeFlags;
     } else {
-      entryName = entryName;
       // By default type is "file" if it has one or more dots in its name &
       // there's at least 1 character after the last dot.
-      entryType = path.parse(rawOperationLine).ext.length > 1 ? "file" : "dir";
+      entryType = path.extname(rawOperationLine).length > 1 ? "file" : "dir";
     }
     
-    let parsedOperation: Operation = {
+    const parsedDirent: DirentDescription = {
       name: entryName,
       type: entryType,
+      relativePath: "", // Declare prop here & overwrite it later
       children: [],
     };
     
     // Verifies that entry is placed at correct depth or skip it
-    if (depth - getTopmostScope().depth > 1) {
+    if (depth - getTopScope().depth > 1) {
       continue;
     }
     
@@ -70,21 +71,27 @@ const parseSchemeToOperations: ParseSchemeToOperations = rawScheme => {
     scopesStack = scopesStack.filter(({ depth: stackDepth }) => depth > stackDepth);
     
     // Ignore entries with duplicate name
-    if (getTopmostScope().parentRef.find(({name: existingEntryName}) => existingEntryName === entryName)) {
+    if (getTopScope().parentRef.find(({name: existingEntryName}) => existingEntryName === entryName)) {
       continue;
     }
     
-    getTopmostScope().parentRef.push(parsedOperation);
+    /**
+     * Normalized path with leading slash.
+     * @TODO Drop leading slash. It's not needed for anything apart from tests.
+     */ 
+    parsedDirent.relativePath = path.join(path.sep, getTopScope().relativePath, entryName);
+    getTopScope().parentRef.push(parsedDirent);
     
     // Let's add current dir as topmost scope since it can contain some content 
     if (entryType === "dir") {
       scopesStack.push({
         depth,
-        parentRef: parsedOperation.children,
+        relativePath: parsedDirent.relativePath,
+        parentRef: parsedDirent.children,
       })
     }
   }
   return scopesStack[0].parentRef;
 };
 
-export default parseSchemeToOperations;
+export default parseSchemeToDirectoryTree;

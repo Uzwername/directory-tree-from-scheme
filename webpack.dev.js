@@ -4,7 +4,6 @@ const commonWebpackConfig = require("./webpack.common");
 
 module.exports = merge(commonWebpackConfig, {
   mode: "development",
-  devtool: "inline-source-map",
   plugins: [
     new ESLintPlugin({
       fix: true,
