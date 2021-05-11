@@ -74,12 +74,8 @@ const parseSchemeToDirectoryTree: ParseSchemeToDirectoryTree = rawScheme => {
     if (getTopScope().parentRef.find(({name: existingEntryName}) => existingEntryName === entryName)) {
       continue;
     }
-    
-    /**
-     * Normalized path with leading slash.
-     * @TODO Drop leading slash. It's not needed for anything apart from tests.
-     */ 
-    parsedDirent.relativePath = path.join(path.sep, getTopScope().relativePath, entryName);
+
+    parsedDirent.relativePath = path.join(getTopScope().relativePath, entryName);
     getTopScope().parentRef.push(parsedDirent);
     
     // Let's add current dir as topmost scope since it can contain some content 

@@ -36,8 +36,6 @@ export const buildDirectoryTreeLayers: BuildDirectoryTreeLayers = async (basePat
     return [];
   }
   
-  let output: DirentDescriptionInfo[] = [];
-  
   const currentLayerPromises = dirTreeVerticalSlice.map(async direntDescription => {
     const entryPath = path.join(basePath, direntDescription.relativePath);
     
@@ -48,24 +46,28 @@ export const buildDirectoryTreeLayers: BuildDirectoryTreeLayers = async (basePat
         await touchDir(entryPath);
       }
       
-      return {
+      const result: DirentDescriptionInfo = {
         path: entryPath,
         status: "success",
         dirent: direntDescription, 
-      } as DirentDescriptionInfo;
+      };
+      
+      return result;
     } catch (error) {
-      return {
+      const result: DirentDescriptionInfo = {
         path: entryPath,
         status: "error",
         dirent: direntDescription,
         error,
-      } as DirentDescriptionInfo;
+      };
+      
+      return result;
     }
   });
   
-  const currentLayerResults = await Promise.all(currentLayerPromises)
-    
-  output = output.concat(
+  const currentLayerResults = await Promise.all(currentLayerPromises);
+  const output: DirentDescriptionInfo[] = [];
+  return output.concat(
     currentLayerResults,
     // Process the next slice
     await buildDirectoryTreeLayers(
@@ -75,7 +77,5 @@ export const buildDirectoryTreeLayers: BuildDirectoryTreeLayers = async (basePat
         .filter(direntInfo => direntInfo.status === "success")
         .flatMap(direntInfo => direntInfo.dirent.children),
     ),
-  );
-    
-  return output;
+  );  
 };

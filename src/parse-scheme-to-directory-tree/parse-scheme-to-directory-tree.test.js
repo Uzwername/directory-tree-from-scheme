@@ -1,3 +1,4 @@
+import path from "path";
 import parseSchemeToDirectoryTree from "./parse-scheme-to-directory-tree";
 
 describe(`${parseSchemeToDirectoryTree.name}: Valid inputs`, () => {
@@ -11,7 +12,7 @@ describe(`${parseSchemeToDirectoryTree.name}: Valid inputs`, () => {
     expect(parseSchemeToDirectoryTree("downloads")).toStrictEqual([{
       name: "downloads",
       type: "dir",
-      relativePath: "/downloads",
+      relativePath: path.normalize("downloads"),
       children: [],
     }]);
   });
@@ -29,19 +30,19 @@ describe(`${parseSchemeToDirectoryTree.name}: Valid inputs`, () => {
       {
         name: testScheme[1].trim(),
         type: "dir",
-        relativePath: "/dirs1",
+        relativePath: path.normalize("dirs1"),
         children: [],
       },
       {
         name: testScheme[2].trim(),
         type: "dir",
-        relativePath: "/dir2",
+        relativePath: path.normalize("dir2"),
         children: [],
       },
       {
         name: testScheme[3].trim(),
         type: "dir",
-        relativePath: "/dir3",
+        relativePath: path.normalize("dir3"),
         children: [],
       },
     ];
@@ -59,13 +60,13 @@ describe(`${parseSchemeToDirectoryTree.name}: Valid inputs`, () => {
       {
         name: "movies",
         type: "dir",
-        relativePath: "/movies",
+        relativePath: path.normalize("movies"),
         children: [],
       },
       {
         name: "links.docx",
         type: "file",
-        relativePath: "/links.docx",
+        relativePath: path.normalize("links.docx"),
         children: [],
       },
     ];
@@ -83,13 +84,13 @@ describe(`${parseSchemeToDirectoryTree.name}: Valid inputs`, () => {
       {
         name: "movies",
         type: "file",
-        relativePath: "/movies",
+        relativePath: path.normalize("movies"),
         children: [],
       },
       {
         name: "links.docx",
         type: "dir",
-        relativePath: "/links.docx",
+        relativePath: path.normalize("links.docx"),
         children: [],
       },
     ];
@@ -107,13 +108,13 @@ describe(`${parseSchemeToDirectoryTree.name}: Valid inputs`, () => {
       {
         name: "movies",
         type: "dir",
-        relativePath: "/movies",
+        relativePath: path.normalize("movies"),
         children: [],
       },
       {
         name: "links.docx",
         type: "file",
-        relativePath: "/links.docx",
+        relativePath: path.normalize("links.docx"),
         children: [],
       },
     ];
@@ -134,26 +135,26 @@ describe(`${parseSchemeToDirectoryTree.name}: Valid inputs`, () => {
       {
         name: "notes",
         type: "dir",
-        relativePath: "/notes",
+        relativePath: path.normalize("notes"),
         children: [
           {
             name: "books.txt",
             type: "file",
-            relativePath: "/notes/books.txt",
+            relativePath: path.normalize("notes/books.txt"),
             children: [],
           },
           {
             name: "important",
             type: "dir",
-            relativePath: "/notes/important",
+            relativePath: path.normalize("notes/important"),
             children: [{
               name: "accounts",
               type: "dir",
-              relativePath: "/notes/important/accounts",
+              relativePath: path.normalize("notes/important/accounts"),
               children: [{
                 name: "account-ids.xlsx",
                 type: "file",
-                relativePath: "/notes/important/accounts/account-ids.xlsx",
+                relativePath: path.normalize("notes/important/accounts/account-ids.xlsx"),
                 children: [],
               }]
             }],
@@ -161,7 +162,7 @@ describe(`${parseSchemeToDirectoryTree.name}: Valid inputs`, () => {
           {
             name: "resources.pages",
             type: "file",
-            relativePath: "/notes/resources.pages",
+            relativePath: path.normalize("notes/resources.pages"),
             children: [],
           },
         ],
@@ -169,7 +170,7 @@ describe(`${parseSchemeToDirectoryTree.name}: Valid inputs`, () => {
       {
         name: "movies",
         type: "dir",
-        relativePath: "/movies",
+        relativePath: path.normalize("movies"),
         children: [],
       },
     ]);
@@ -187,33 +188,33 @@ describe(`${parseSchemeToDirectoryTree.name}: Valid inputs`, () => {
       {
         name: "src",
         type: "dir",
-        relativePath: "/src",
+        relativePath: path.normalize("src"),
         children: [{
           name: "index.html",
           type: "file",
-          relativePath: "/src/index.html",
+          relativePath: path.normalize("src/index.html"),
           children: [],
         }],
       },
       {
         name: "dist",
         type: "dir",
-        relativePath: "/dist",
+        relativePath: path.normalize("dist"),
         children: [{
           name: "index.html",
           type: "file",
-          relativePath: "/dist/index.html",
+          relativePath: path.normalize("dist/index.html"),
           children: [],
         }],
       },
       {
         name: "mocks",
         type: "dir",
-        relativePath: "/mocks",
+        relativePath: path.normalize("mocks"),
         children: [{
           name: "index.html",
           type: "file",
-          relativePath: "/mocks/index.html",
+          relativePath: path.normalize("mocks/index.html"),
           children: [],
         }],
       },
@@ -227,11 +228,11 @@ describe(`${parseSchemeToDirectoryTree.name}: Valid inputs`, () => {
     `)).toStrictEqual([{
       name: ".git",
       type: "dir",
-      relativePath: "/.git",
+      relativePath: path.normalize(".git"),
       children: [{
         name: "refs",
         type: "dir",
-        relativePath: "/.git/refs",
+        relativePath: path.normalize(".git/refs"),
         children: [],
       }],
     }]);
@@ -243,11 +244,11 @@ describe(`${parseSchemeToDirectoryTree.name}: Valid inputs`, () => {
     `)).toStrictEqual([{
       name: "file.txt",
       type: "dir",
-      relativePath: "/file.txt",
+      relativePath: path.normalize("file.txt"),
       children: [{
         name: "settings.xml",
         type: "file",
-        relativePath: "/file.txt/settings.xml",
+        relativePath: path.normalize("file.txt/settings.xml"),
         children: [],
       }],
     }]);
@@ -264,29 +265,29 @@ describe(`${parseSchemeToDirectoryTree.name}: Valid inputs`, () => {
       {
         name: "dir1",
         type: "dir",
-        relativePath: "/dir1",
+        relativePath: path.normalize("dir1"),
         children: [],
       },
       {
         name: "dir2",
         type: "dir",
-        relativePath: "/dir2",
+        relativePath: path.normalize("dir2"),
         children: [
           {
             name: "dir3",
             type: "dir",
-            relativePath: "/dir2/dir3",
+            relativePath: path.normalize("dir2/dir3"),
             children: [{
               name: "dir4",
               type: "dir",
-              relativePath: "/dir2/dir3/dir4",
+              relativePath: path.normalize("dir2/dir3/dir4"),
               children: [],
             }],
           },
           {
             name: "file.txt",
             type: "file",
-            relativePath: "/dir2/file.txt",
+            relativePath: path.normalize("dir2/file.txt"),
             children: [],
           },
         ],
@@ -305,33 +306,33 @@ describe(`${parseSchemeToDirectoryTree.name}: Valid inputs`, () => {
       {
         name: "dir 1",
         type: "dir",
-        relativePath: "/dir 1",
+        relativePath: path.normalize("dir 1"),
         children: [],
       },
       {
         name: "dir 2",
         type: "dir",
-        relativePath: "/dir 2",
+        relativePath: path.normalize("dir 2"),
         children: [{
           name: "dir 3",
           type: "dir",
-          relativePath: "/dir 2/dir 3",
+          relativePath: path.normalize("dir 2/dir 3"),
           children: [{
             name: "dir 4",
             type: "dir",
-            relativePath: "/dir 2/dir 3/dir 4",
+            relativePath: path.normalize("dir 2/dir 3/dir 4"),
             children: [{
               name: "dir 5",
               type: "dir",
-              relativePath: "/dir 2/dir 3/dir 4/dir 5",
+              relativePath: path.normalize("dir 2/dir 3/dir 4/dir 5"),
               children: [{
                 name: "dir 6",
                 type: "dir",
-                relativePath: "/dir 2/dir 3/dir 4/dir 5/dir 6",
+                relativePath: path.normalize("dir 2/dir 3/dir 4/dir 5/dir 6"),
                 children: [{
                   name: "dir 7",
                   type: "dir",
-                  relativePath: "/dir 2/dir 3/dir 4/dir 5/dir 6/dir 7",
+                  relativePath: path.normalize("dir 2/dir 3/dir 4/dir 5/dir 6/dir 7"),
                   children: [],
                 }],
               }],
@@ -357,39 +358,39 @@ describe(`${parseSchemeToDirectoryTree.name}: Valid inputs`, () => {
       {
         name: "dir1",
         type: "dir",
-        relativePath: "/dir1",
+        relativePath: path.normalize("dir1"),
         children: [
           {
             name: "dir2",
             type: "dir",
-            relativePath: "/dir1/dir2",
+            relativePath: path.normalize("dir1/dir2"),
             children: [{
               name: "file.txt",
               type: "file",
-              relativePath: "/dir1/dir2/file.txt",
+              relativePath: path.normalize("dir1/dir2/file.txt"),
               children: [],
             }],
           },
           {
             name: "DIR3",
             type: "dir",
-            relativePath: "/dir1/DIR3",
+            relativePath: path.normalize("dir1/DIR3"),
             children: [
               {
                 name: "Dir4",
                 type: "dir",
-                relativePath: "/dir1/DIR3/Dir4",
+                relativePath: path.normalize("dir1/DIR3/Dir4"),
                 children: [
                   {
                     name: "dir 5",
                     type: "dir",
-                    relativePath: "/dir1/DIR3/Dir4/dir 5",
+                    relativePath: path.normalize("dir1/DIR3/Dir4/dir 5"),
                     children: [],
                   },
                   {
                     name: "file2.txt",
                     type: "dir",
-                    relativePath: "/dir1/DIR3/Dir4/file2.txt",
+                    relativePath: path.normalize("dir1/DIR3/Dir4/file2.txt"),
                     children: [],
                   },
                 ],
@@ -397,11 +398,11 @@ describe(`${parseSchemeToDirectoryTree.name}: Valid inputs`, () => {
               {
                 name: "dir 6",
                 type: "dir",
-                relativePath: "/dir1/DIR3/dir 6",
+                relativePath: path.normalize("dir1/DIR3/dir 6"),
                 children: [{
                   name: "dir 7",
                   type: "file",
-                  relativePath: "/dir1/DIR3/dir 6/dir 7",
+                  relativePath: path.normalize("dir1/DIR3/dir 6/dir 7"),
                   children: [],
                 }],
               },
@@ -410,7 +411,7 @@ describe(`${parseSchemeToDirectoryTree.name}: Valid inputs`, () => {
           {
             name: "file 3.xml",
             type: "file",
-            relativePath: "/dir1/file 3.xml",
+            relativePath: path.normalize("dir1/file 3.xml"),
             children: [],
           },
         ],
@@ -418,7 +419,7 @@ describe(`${parseSchemeToDirectoryTree.name}: Valid inputs`, () => {
       {
         name: "file4.docx",
         type: "file",
-        relativePath: "/file4.docx",
+        relativePath: path.normalize("file4.docx"),
         children: [],
       },
     ]);
@@ -446,41 +447,41 @@ describe(`${parseSchemeToDirectoryTree.name}: Valid inputs`, () => {
       {
         name: "dir 1",
         type: "dir",
-        relativePath: "/dir 1",
+        relativePath: path.normalize("dir 1"),
         children: [{
           name: "dir 2",
           type: "dir",
-          relativePath: "/dir 1/dir 2",
+          relativePath: path.normalize("dir 1/dir 2"),
           children: [],
         }],
       },
       {
         name: "dir 3",
         type: "dir",
-        relativePath: "/dir 3",
+        relativePath: path.normalize("dir 3"),
         children: [
           {
             name: "dir 4",
             type: "dir",
-            relativePath: "/dir 3/dir 4",
+            relativePath: path.normalize("dir 3/dir 4"),
             children: [
               {
                 name: "dir 5",
                 type: "dir",
-                relativePath: "/dir 3/dir 4/dir 5",
+                relativePath: path.normalize("dir 3/dir 4/dir 5"),
                 children: [
                   {
                     name: "dir 6",
                     type: "dir",
-                    relativePath: "/dir 3/dir 4/dir 5/dir 6",
+                    relativePath: path.normalize("dir 3/dir 4/dir 5/dir 6"),
                     children: [{
                       name: "dir 7",
                       type: "dir",
-                      relativePath: "/dir 3/dir 4/dir 5/dir 6/dir 7",
+                      relativePath: path.normalize("dir 3/dir 4/dir 5/dir 6/dir 7"),
                       children: [{
                         name: "dir 8",
                         type: "dir",
-                        relativePath: "/dir 3/dir 4/dir 5/dir 6/dir 7/dir 8",
+                        relativePath: path.normalize("dir 3/dir 4/dir 5/dir 6/dir 7/dir 8"),
                         children: [],
                       }],
                     }],
@@ -488,7 +489,7 @@ describe(`${parseSchemeToDirectoryTree.name}: Valid inputs`, () => {
                   {
                     name: "dir 9",
                     type: "dir",
-                    relativePath: "/dir 3/dir 4/dir 5/dir 9",
+                    relativePath: path.normalize("dir 3/dir 4/dir 5/dir 9"),
                     children: [],
                   }
                 ],
@@ -496,7 +497,7 @@ describe(`${parseSchemeToDirectoryTree.name}: Valid inputs`, () => {
               {
                 name: "dir 10",
                 type: "dir",
-                relativePath: "/dir 3/dir 4/dir 10",
+                relativePath: path.normalize("dir 3/dir 4/dir 10"),
                 children: [],
               },
             ],
@@ -504,23 +505,23 @@ describe(`${parseSchemeToDirectoryTree.name}: Valid inputs`, () => {
           {
             name: "dir 11",
             type: "dir",
-            relativePath: "/dir 3/dir 11",
+            relativePath: path.normalize("dir 3/dir 11"),
             children: [
               {
                 name: "dir 12",
                 type: "dir",
-                relativePath: "/dir 3/dir 11/dir 12",
+                relativePath: path.normalize("dir 3/dir 11/dir 12"),
                 children: [{
                   name: "dir 13",
                   type: "dir",
-                  relativePath: "/dir 3/dir 11/dir 12/dir 13",
+                  relativePath: path.normalize("dir 3/dir 11/dir 12/dir 13"),
                   children: [],
                 }],
               },
               {
                 name: "dir 14",
                 type: "dir",
-                relativePath: "/dir 3/dir 11/dir 14",
+                relativePath: path.normalize("dir 3/dir 11/dir 14"),
                 children: [],
               },
             ],
@@ -530,7 +531,7 @@ describe(`${parseSchemeToDirectoryTree.name}: Valid inputs`, () => {
       {
         name: "dir 15",
         type: "dir",
-        relativePath: "/dir 15",
+        relativePath: path.normalize("dir 15"),
         children: [],
       },
     ]);
@@ -557,7 +558,7 @@ describe(`${parseSchemeToDirectoryTree.name}: Invalid & weird inputs`, () => {
     `)).toStrictEqual([{
       name: "sample /files",
       type: "dir",
-      relativePath: "/sample /files",
+      relativePath: path.normalize("sample /files"),
       children: [],
     }]);
     
@@ -566,7 +567,7 @@ describe(`${parseSchemeToDirectoryTree.name}: Invalid & weird inputs`, () => {
     `)).toStrictEqual([{
       name: "sample /dirs",
       type: "dir",
-      relativePath: "/sample /dirs",
+      relativePath: path.normalize("sample /dirs"),
       children: [],
     }]);
     
@@ -575,7 +576,7 @@ describe(`${parseSchemeToDirectoryTree.name}: Invalid & weird inputs`, () => {
     `)).toStrictEqual([{
       name: "sample /file      k",
       type: "dir",
-      relativePath: "/sample /file      k",
+      relativePath: path.normalize("sample /file      k"),
       children: [],
     }]);
     
@@ -584,7 +585,7 @@ describe(`${parseSchemeToDirectoryTree.name}: Invalid & weird inputs`, () => {
     `)).toStrictEqual([{
       name: "sample /dir _9",
       type: "dir",
-      relativePath: "/sample /dir _9",
+      relativePath: path.normalize("sample /dir _9"),
       children: [],
     }]);
     
@@ -593,7 +594,7 @@ describe(`${parseSchemeToDirectoryTree.name}: Invalid & weird inputs`, () => {
     `)).toStrictEqual([{
       name: "sample //file",
       type: "dir",
-      relativePath: "/sample /file",
+      relativePath: path.normalize("sample /file"),
       children: [],
     }]);
     
@@ -602,7 +603,7 @@ describe(`${parseSchemeToDirectoryTree.name}: Invalid & weird inputs`, () => {
     `)).toStrictEqual([{
       name: "sample //dir",
       type: "dir",
-      relativePath: "/sample /dir",
+      relativePath: path.normalize("sample /dir"),
       children: [],
     }]);
     
@@ -611,7 +612,7 @@ describe(`${parseSchemeToDirectoryTree.name}: Invalid & weird inputs`, () => {
     `)).toStrictEqual([{
       name: "sample \\/file",
       type: "dir",
-      relativePath: "/sample \\/file",
+      relativePath: path.normalize("sample \\/file"),
       children: [],
     }]);
     
@@ -620,7 +621,7 @@ describe(`${parseSchemeToDirectoryTree.name}: Invalid & weird inputs`, () => {
     `)).toStrictEqual([{
       name: "sample \\/dir",
       type: "dir",
-      relativePath: "/sample \\/dir",
+      relativePath: path.normalize("sample \\/dir"),
       children: [],
     }]);
   });
@@ -636,11 +637,11 @@ describe(`${parseSchemeToDirectoryTree.name}: Invalid & weird inputs`, () => {
     `)).toStrictEqual([{
       name: "notes",
       type: "dir",
-      relativePath: "/notes",
+      relativePath: path.normalize("notes"),
       children: [{
         name: "books.txt",
         type: "file",
-        relativePath: "/notes/books.txt",
+        relativePath: path.normalize("notes/books.txt"),
         children: [],
       }],
     }]);
@@ -654,13 +655,13 @@ describe(`${parseSchemeToDirectoryTree.name}: Invalid & weird inputs`, () => {
       {
         name: "dir 1",
         type: "dir",
-        relativePath: "/dir 1",
+        relativePath: path.normalize("dir 1"),
         children: [],
       },
       {
         name: "dir 2",
         type: "dir",
-        relativePath: "/dir 2",
+        relativePath: path.normalize("dir 2"),
         children: [],
       },
     ]);
@@ -684,30 +685,30 @@ describe(`${parseSchemeToDirectoryTree.name}: Invalid & weird inputs`, () => {
       {
         name: "downloads",
         type: "dir",
-        relativePath: "/downloads",
+        relativePath: path.normalize("downloads"),
         children: [
           {
             name: "whitepaper.pdf",
             type: "file",
-            relativePath: "/downloads/whitepaper.pdf",
+            relativePath: path.normalize("downloads/whitepaper.pdf"),
             children: [],
           },
           {
             name: "cake_recipe.docx",
             type: "file",
-            relativePath: "/downloads/cake_recipe.docx",
+            relativePath: path.normalize("downloads/cake_recipe.docx"),
             children: [],
           },
           {
             name: "stylesheets.css",
             type: "file",
-            relativePath: "/downloads/stylesheets.css",
+            relativePath: path.normalize("downloads/stylesheets.css"),
             children: [],
           },
           {
             name: "stylesheets.js",
             type: "file",
-            relativePath: "/downloads/stylesheets.js",
+            relativePath: path.normalize("downloads/stylesheets.js"),
             children: [],
           },
         ],
@@ -715,18 +716,18 @@ describe(`${parseSchemeToDirectoryTree.name}: Invalid & weird inputs`, () => {
       {
         name: "todos",
         type: "dir",
-        relativePath: "/todos",
+        relativePath: path.normalize("todos"),
         children: [
           {
             name: "downloads",
             type: "dir",
-            relativePath: "/todos/downloads",
+            relativePath: path.normalize("todos/downloads"),
             children: [],
           },
           {
             name: "cake_recipe.docx",
             type: "file",
-            relativePath: "/todos/cake_recipe.docx",
+            relativePath: path.normalize("todos/cake_recipe.docx"),
             children: [],
           },
         ]
@@ -741,7 +742,7 @@ describe(`${parseSchemeToDirectoryTree.name}: Invalid & weird inputs`, () => {
     `)).toStrictEqual([{
       name: "main.cpp",
       type: "file",
-      relativePath: "/main.cpp",
+      relativePath: path.normalize("main.cpp"),
       children: [],
     }]);
   });
@@ -757,11 +758,11 @@ describe(`${parseSchemeToDirectoryTree.name}: Invalid & weird inputs`, () => {
     `)).toStrictEqual([{
       name: "Downloads",
       type: "dir",
-      relativePath: "/Downloads",
+      relativePath: path.normalize("Downloads"),
       children: [{
         name: "install.cmd",
         type: "file",
-        relativePath: "/Downloads/install.cmd",
+        relativePath: path.normalize("Downloads/install.cmd"),
         children: [],
       }],
     }]);
@@ -775,7 +776,7 @@ describe(`${parseSchemeToDirectoryTree.name}: Invalid & weird inputs`, () => {
     `)).toStrictEqual([{
       name: "folder",
       type: "dir",
-      relativePath: "/folder",
+      relativePath: path.normalize("folder"),
       children: [],
     }])
   });
@@ -789,17 +790,17 @@ describe(`${parseSchemeToDirectoryTree.name}: Invalid & weird inputs`, () => {
       {
         name: "folder",
         type: "dir",
-        relativePath: "/folder",
+        relativePath: path.normalize("folder"),
         children: [],
       },
       {
         name: "- |",
         type: "dir",
-        relativePath: "/- |",
+        relativePath: path.normalize("- |"),
         children: [{
           name: "presentation.ppt",
           type: "file",
-          relativePath: "/- |/presentation.ppt",
+          relativePath: path.normalize("- |/presentation.ppt"),
           children: [],
         }],
       },

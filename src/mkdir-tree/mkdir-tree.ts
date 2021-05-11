@@ -15,13 +15,13 @@ import { MkdirTree } from "@/mkdir-tree/mkdir-tree.types";
  */
 const mkdirTree: MkdirTree = (baseDirPath, maybeRawScheme) => {
   if (typeof baseDirPath !== "string") {
-    throw new Error(`Directory path must be a string, passed path's type was ${typeof baseDirPath}.`);
+    throw new TypeError(`Directory path must be a string, passed path's type was ${typeof baseDirPath}.`);
   } else if (0 >= baseDirPath.length) {
     throw new Error("Empty string cannot be used as a directory path.");
   }
   
   if (typeof maybeRawScheme !== "string") {
-    throw new Error(`Scheme must be a string, passed scheme's type was ${typeof maybeRawScheme}.`);
+    throw new TypeError(`Scheme must be a string, passed scheme's type was ${typeof maybeRawScheme}.`);
   }
   
   if (!maybeRawScheme.length) {
