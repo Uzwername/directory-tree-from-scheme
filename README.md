@@ -1,6 +1,5 @@
 # mkdir-tree
 [![npm](https://img.shields.io/npm/v/mkdir-tree)](https://www.npmjs.com/package/mkdir-tree)
-[![npm bundle minified size](https://img.shields.io/bundlephobia/min/mkdir-tree)](https://www.npmjs.com/package/mkdir-tree)
 [![npm type definitions](https://img.shields.io/npm/types/mkdir-tree)](https://www.npmjs.com/package/mkdir-tree)
 [![Snyk Vulnerabilities for GitHub Repo](https://img.shields.io/snyk/vulnerabilities/github/Uzwername/directory-tree-from-scheme)](https://www.npmjs.com/package/mkdir-tree)
 [![tested with jest](https://img.shields.io/badge/tested_with-jest-99424f.svg)](https://github.com/facebook/jest)
