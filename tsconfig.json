@@ -2,26 +2,26 @@
   "compilerOptions": {
     "baseUrl": ".",
     "outDir": "./dist/",
-    "module": "es6",
+    "target": "ESNext",
+    "module": "ESNext",
     "moduleResolution": "node",
+    "sourceMap": false,
+    "strict": true,
+    "declaration": true,
     "removeComments": true,
     "allowSyntheticDefaultImports": true,
-    "target": "es5",
-    "strict": true,
-    "sourceMap": false,
-    "declaration": true,
-    "lib": [
-      "ESNext",
-    ],
-    "jsx": "preserve",
+    "forceConsistentCasingInFileNames": true,
+    "lib": ["ESNext"],
     "paths": {
-      "@/*": [
-        "src/*",
-      ],
-      "$root/*": [
-        "./*"
-      ]
-    }
+      "@/*": ["./src/*"],
+      "$root/*": ["./*"]
+    },
+    "plugins": [
+      {
+        "transform": "typescript-transform-paths",
+        "afterDeclarations": true
+      }
+    ]
   },
   "include": [
     "src/"

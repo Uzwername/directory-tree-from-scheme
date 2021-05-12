@@ -7,14 +7,18 @@ module.exports = {
   output: {
     filename: "index.js",
     path: path.resolve(__dirname, "dist"),
-  },
-  resolve: {
-    extensions: [".js", ".ts"],
-    alias: {
-      "@": path.resolve(__dirname, "src"),
-      "$root": __dirname,
+    library: {
+      type: "commonjs2",
+      export: "default",
     },
   },
+resolve: {
+  extensions: [".js", ".ts"],
+  alias: {
+    "@": path.resolve(__dirname, "src"),
+    "$root": __dirname,
+  },
+},
   target: "node",
   externals: [
     nodeExternals(),
@@ -45,7 +49,10 @@ module.exports = {
       {
         test: /\.ts$/,
         loader: "ts-loader",
-      }
+        options: {
+          compiler: "ttypescript",
+        }
+      },
     ],
   },
 };

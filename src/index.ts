@@ -1,4 +1,3 @@
-const mkdirTree = require("./mkdir-tree/mkdir-tree");
+import mkdirTree from "@/mkdir-tree/mkdir-tree";
 
-exports.default = mkdirTree;
-module.exports = exports.default;
+export default mkdirTree;
