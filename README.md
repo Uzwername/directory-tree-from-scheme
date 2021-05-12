@@ -12,7 +12,6 @@ Lightweight, efficient, declarative, opinion-less & extremely easy to use.
 # Features
 
 + 📜 **License:** MIT
-+ ⚡️ **Size:** ≈5KB minified & ≈2KB gzipped
 + 🛠 **Compatibility:** Node >= 8
 + ⌨️ **Typescript:** TypeScript Typings built-in
 + 🧰 **Dependencies:** 0 dependencies except [`babel`](https://babeljs.io/)-related

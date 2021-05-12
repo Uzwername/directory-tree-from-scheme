@@ -1,6 +1,6 @@
 {
   "name": "mkdir-tree",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Generate directory tree from a scheme.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
