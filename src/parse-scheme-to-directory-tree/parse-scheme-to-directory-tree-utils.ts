@@ -1,3 +1,4 @@
+import os from "os";
 import { ForceTypeFlags } from "@/parse-scheme-to-directory-tree/parse-scheme-to-directory-tree.types";
 
 const supportedForcedTypes: ForceTypeFlags[] = ["file", "dir"];
@@ -8,7 +9,7 @@ export const depthDelimiter = Object.freeze({
 });
 
 export const splitSchemeToCleanLines = (scheme: string): string[] => scheme
-  .split("\n")
+  .split(os.EOL)
   .reduce((accumulator: string[], string) => {
     const denseString = string.trim();
     

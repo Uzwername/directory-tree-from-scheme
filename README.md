@@ -102,7 +102,7 @@ If you want to make sure that names of your entries are ok, you might be looking
 
 Scheme format has only 3 rules:
 
-+ Entries are divided by new line character(/s) (`\n` or `\n\r`).
++ Entries are divided by a new line character(/s).
 + Flags (`/dir` & `/file`) must be preceded by a space-like character & must be the last characters (apart from arbitrary space-like characters) in the line.
 + Level indicator (`|`) must be followed by a space-like character & must be preceded only by a correct number of depth indicators (`-`) and arbitrary number of space-like characters.
 
