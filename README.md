@@ -20,11 +20,11 @@ Lightweight, efficient, declarative, opinion-less & extremely easy to use.
 # Install
 
 ```sh
-npm i mkdir-tree
+npm i -D mkdir-tree
 
 # or
 
-yarn add mkdir-tree
+yarn add mkdir-tree --dev
 ```
 
 # Use
