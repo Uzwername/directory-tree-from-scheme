@@ -12,7 +12,7 @@ Lightweight, efficient, declarative, opinion-less & extremely easy to use.
 # Features
 
 + 📜 **License:** MIT
-+ ⚡️ **Bundle size:** ≈3KB minified & ≈1KB gzipped
++ ⚡️ **JS bundle size:** ≈3KB minified & ≈1KB gzipped
 + 🛠 **Compatibility:** Node >= 8
 + ⌨️ **Typescript:** TypeScript Typings built-in
 + 🧰 **Dependencies:** 0 dependencies except [`babel`](https://babeljs.io/)-related
@@ -40,7 +40,7 @@ import mkdirTree from "mkdir-tree";
 
 Create the desired directory structure in one function call:
 ```js
-mkdirTree('.', `
+await mkdirTree('.', `
   package.json
   dist
   src
@@ -70,9 +70,9 @@ For instance, `file.txt`, `index.js` & `.eslintrc.js` are considered to be files
 You can also force entry type if you want to by specifying `/file` or `/dir` flag like this:
 
 ```js
-mkdirTree('.', `
+await mkdirTree('.', `
   files.code /dir
-    - | index.ts 
+    - | index /file 
 `);
 ```
 
@@ -82,12 +82,12 @@ Please note that the flag must be preceded by a space-like character.
 
 ### Partially created directory trees
 
-It's safe to call `mkdirTree` on directories that already have parts of the directory tree specified in `scheme`.
+It's safe to call `mkdirTree` on directories that already contain parts of the directory tree specified in `scheme`.
 Existing files & directories will not be affected while new files & folders will be created.
 
 ### Errors
 
-`mkdirTree` returns **a promise that always resolves to an array of objects**, however, it might throw synchronously in case if `dirPath` or `scheme` is missing or empty.
+`mkdirTree` returns a promise **that always resolves** to [an array of objects](#return), however, it might throw synchronously in case if `dirPath` or `scheme` is missing or empty.
 
 To avoid this, ensure that both `dirPath` & `scheme` are non-empty strings before calling `mkdirTree` or wrap call to `mkdirTree` into [`try...catch` block](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/try...catch).
 
@@ -129,3 +129,5 @@ Please note that entries that have an incorrect number of depth indicators will 
 ```
 
 Those objects might be present in any order. No particular order is guaranteed & the current behavior might change in future versions.
+
+Please note, that some entries might not be present in the array due to incorrect number of depth indicators specified or an error in creation of upper-level directories. 
