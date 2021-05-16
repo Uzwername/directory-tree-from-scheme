@@ -119,4 +119,22 @@ describe(mkdirTree.name, () => {
       )
     ).toBe(true);
   });
+  
+  it("Works if target dir doesn't exist", async () => {
+    const result = await mkdirTree(
+      path.join(testBasePath, "non/existent/dir"),
+      `
+        some
+        test
+        folders
+      `,
+    );
+    
+    result.forEach(info => {
+      expect(info.status).toBe("error");
+      expect(info.error.code).toBe("ENOENT");
+      expect(info.error.message).toContain("no such file or directory");
+    });
+    
+  });
 }); 
