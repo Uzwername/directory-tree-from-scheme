@@ -25,6 +25,17 @@ npm i -D mkdir-tree
 # or
 
 yarn add mkdir-tree --dev
+
+# or use directly in CLI
+
+mkdir-tree --dir ./my-project --scheme '
+dist
+src
+- | constants
+- | utils
+- | views
+- | controllers
+'
 ```
 
 # Use
@@ -58,7 +69,7 @@ await mkdirTree('.', `
 
 | Name      | Type                 | Required | Description                                                                                           |
 | --------- | -------------------- | -------- | ----------------------------------------------------------------------------------------------------- |
-| dirPath | string | Yes      | Relative or absolute path to the target directory where the directory structure specified by the `scheme` will be built. |
+| dirPath | string | Yes      | Relative or absolute path to the target directory where the directory structure specified by the `scheme` will be created. |
 | scheme     | string               | Yes       | Graphical description of the directory structure to create. |
 
 ## Entry Types
