@@ -1,4 +1,5 @@
 const path = require("path");
+const ShebangPlugin = require('webpack-shebang-plugin');
 const packageJson = require("./package.json");
 
 const BIN_FOLDER = path.resolve(__dirname, "bin");
@@ -10,12 +11,7 @@ module.exports = {
     path: BIN_FOLDER,
     clean: false,
   },
-  module: {
-    rules: [
-      {
-        test: /\.ts$/,
-        loader: "shebang-loader",
-      }
-    ]
-  },
+  plugins: [
+    new ShebangPlugin(),
+  ]
 };

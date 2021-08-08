@@ -28,7 +28,7 @@ yarn add mkdir-tree --dev
 
 # or use directly in CLI
 
-mkdir-tree --dir ./my-project --scheme '
+npx mkdir-tree --dir ./my-project --scheme '
 dist
 src
 - | constants
