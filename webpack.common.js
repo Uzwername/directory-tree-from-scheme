@@ -1,5 +1,4 @@
 const path = require("path");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const nodeExternals = require("webpack-node-externals");
 
 module.exports = {
@@ -12,19 +11,16 @@ module.exports = {
       export: "default",
     },
   },
-resolve: {
-  extensions: [".js", ".ts"],
-  alias: {
-    "@": path.resolve(__dirname, "src"),
-    "$root": __dirname,
+  resolve: {
+    extensions: [".js", ".ts"],
+    alias: {
+      "@": path.resolve(__dirname, "src"),
+      "$root": __dirname,
+    },
   },
-},
   target: "node",
   externals: [
     nodeExternals(),
-  ],
-  plugins: [
-    new CleanWebpackPlugin(),
   ],
   module: {
     rules: [
