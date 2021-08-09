@@ -2,6 +2,7 @@
 
 import yargs from "yargs/yargs";
 import { hideBin } from "yargs/helpers";
+import unescapeJs from "unescape-js";
 import packageJson from "$root/package.json";
 import mkdirTree from "@/index";
 
@@ -44,7 +45,11 @@ yargs(hideBin(process.argv))
     })
   }, async argv => {
     try {
-      const results = await mkdirTree(argv.dir, argv.scheme);
+      const results = await mkdirTree(
+        argv.dir,
+        // Seems like npx escapes newlines from \n to \\n
+        unescapeJs(argv.scheme)
+      );
       
       const isAnyCreationError = results.some(info => info.status === "error");
       
