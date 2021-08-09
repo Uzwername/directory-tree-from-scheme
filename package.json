@@ -46,6 +46,7 @@
   "dependencies": {
     "@babel/runtime": "^7.14.8",
     "core-js": "^3.16.0",
+    "unescape-js": "^1.1.4",
     "yargs": "^17.1.0"
   },
   "devDependencies": {
